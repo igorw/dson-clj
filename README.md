@@ -1,6 +1,7 @@
 # Doge Serialized Object Notation
 
-A parser for the Doge Serialized Object Notation ("dogeon") format. Using instaparse.
+A parser for the [Doge Serialized Object Notation](http://dogeon.org/)
+("dogeon") format. Using instaparse.
 
 ## Usage
 
