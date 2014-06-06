@@ -1,7 +1,7 @@
-(ns dogeon.core
+(ns dson.core
   (:require [instaparse.core :as insta]))
 
-(def parse-dogeon
+(def parse-dson
   (insta/parser
     "value = string | number | object | array | true | false | null
      object = 'such wow' | 'such' members 'wow'
@@ -25,7 +25,7 @@
      null = 'empty'"
      :auto-whitespace :standard))
 
-(defn transform-dogeon
+(defn transform-dson
   [parse-tree]
   (insta/transform
     {:value identity
@@ -53,15 +53,15 @@
      :null (fn [_] nil)}
     parse-tree))
 
-(defn dogeon
+(defn dson
   [input]
-  (->> input parse-dogeon transform-dogeon))
+  (->> input parse-dson transform-dson))
 
 (defn -main
   [& args]
-  (prn (dogeon "so many"))
-  (prn (dogeon "so yes also no also empty many"))
-  (prn (dogeon "such \"foo\" is \"bar\". \"doge\" is \"shibe\" wow"))
-  (prn (dogeon "such \"foo\" is such \"shiba\" is \"inu\", \"doge\" is yes wow wow"))
-  (prn (dogeon "such \"foo\" is so \"bar\" also \"baz\" and \"fizzbuzz\" many wow"))
-  (prn (dogeon "such \"foo\" is 42very3 wow")))
+  (prn (dson "so many"))
+  (prn (dson "so yes also no also empty many"))
+  (prn (dson "such \"foo\" is \"bar\". \"doge\" is \"shibe\" wow"))
+  (prn (dson "such \"foo\" is such \"shiba\" is \"inu\", \"doge\" is yes wow wow"))
+  (prn (dson "such \"foo\" is so \"bar\" also \"baz\" and \"fizzbuzz\" many wow"))
+  (prn (dson "such \"foo\" is 42very3 wow")))

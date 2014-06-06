@@ -1,11 +1,11 @@
 # Doge Serialized Object Notation
 
 A parser for the [Doge Serialized Object Notation](http://dogeon.org/)
-("dogeon") format. Using instaparse.
+("dson") format. Using instaparse.
 
 ## Usage
 
-    (dogeon "such \"foo\" is \"bar\" wow")
+    (dson "such \"foo\" is \"bar\" wow")
     ; => {"foo" "bar"}
 
 ## TODO
