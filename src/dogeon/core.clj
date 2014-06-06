@@ -3,7 +3,7 @@
 
 (def parse-dogeon
   (insta/parser
-    "value = string | number | object | array | 'notfalse' | 'nottrue' | 'nullish'
+    "value = string | number | object | array | true | false | null
      object = 'such wow' | 'such' members 'wow'
      members = pair | pair 'next' members
      pair = string 'is' value
@@ -19,7 +19,10 @@
      frac = '.' digits
      exp = very digits
      digits = digit | digit digits
-     very = 'very' | 'very+' | 'very-' | 'VERY' | 'VERY+' | 'VERY-'"
+     very = 'very' | 'very+' | 'very-' | 'VERY' | 'VERY+' | 'VERY-'
+     true = 'notfalse'
+     false = 'nottrue'
+     null = 'nullish'"
      :auto-whitespace :standard))
 
 (defn transform-dogeon
@@ -44,7 +47,10 @@
      :digit1-9 identity
      :digit identity
      :digits (fn ([digit] (Float. digit))
-                 ([digit digits] (Float. (str digit digits))))}
+                 ([digit digits] (Float. (str digit digits)))),
+     :true (fn [_] true),
+     :false (fn [_] false),
+     :null (fn [_] nil)}
     parse-tree))
 
 (defn dogeon
@@ -54,6 +60,7 @@
 (defn -main
   [& args]
   (prn (dogeon "so many"))
+  (prn (dogeon "so notfalse next nottrue next nullish many"))
   (prn (dogeon "such \"foo\" is \"bar\" wow"))
   (prn (dogeon "such \"foo\" is so \"bar\" next \"baz\" next \"fizzbuzz\" many wow"))
   (prn (dogeon "such \"foo\" is 42very3 wow")))
