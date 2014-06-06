@@ -55,7 +55,7 @@
 
 (defn dogeon
   [input]
-  (transform-dogeon (parse-dogeon input)))
+  (->> input parse-dogeon transform-dogeon))
 
 (defn -main
   [& args]
