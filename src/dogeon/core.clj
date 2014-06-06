@@ -5,10 +5,10 @@
   (insta/parser
     "value = string | number | object | array | true | false | null
      object = 'such wow' | 'such' members 'wow'
-     members = pair | pair 'next' members
+     members = pair | pair ',' members | pair '.' members | pair '!' members | pair '?' members
      pair = string 'is' value
      array = 'so many' | 'so' elements 'many'
-     elements = value | value 'next' elements
+     elements = value | value 'and' elements | value 'also' elements
      string = '\"\"' | '\"' chars '\"'
      chars = char | char chars
      char = #'[^\"\\/\b\f\n\r\t]'
@@ -20,9 +20,9 @@
      exp = very digits
      digits = digit | digit digits
      very = 'very' | 'very+' | 'very-' | 'VERY' | 'VERY+' | 'VERY-'
-     true = 'notfalse'
-     false = 'nottrue'
-     null = 'nullish'"
+     true = 'yes'
+     false = 'no'
+     null = 'empty'"
      :auto-whitespace :standard))
 
 (defn transform-dogeon
@@ -60,7 +60,8 @@
 (defn -main
   [& args]
   (prn (dogeon "so many"))
-  (prn (dogeon "so notfalse next nottrue next nullish many"))
-  (prn (dogeon "such \"foo\" is \"bar\" wow"))
-  (prn (dogeon "such \"foo\" is so \"bar\" next \"baz\" next \"fizzbuzz\" many wow"))
+  (prn (dogeon "so yes also no also empty many"))
+  (prn (dogeon "such \"foo\" is \"bar\". \"doge\" is \"shibe\" wow"))
+  (prn (dogeon "such \"foo\" is such \"shiba\" is \"inu\", \"doge\" is yes wow wow"))
+  (prn (dogeon "such \"foo\" is so \"bar\" also \"baz\" and \"fizzbuzz\" many wow"))
   (prn (dogeon "such \"foo\" is 42very3 wow")))
